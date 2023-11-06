@@ -8,9 +8,9 @@ import (
 )
 
 func PostGetAll(c *fiber.Ctx) error {
-	var posts []models.Post
+	var posts []models.PostResponseWithTag
 
-	database.DB.Preload("User").Find(&posts)
+	database.DB.Preload("User").Preload("Tags").Find(&posts)
 
 	return c.JSON(fiber.Map{"posts": posts})
 }
